@@ -22,7 +22,6 @@ class DataLoaderService:
     def load_sheet_names(self):
         file_path = "./resources/raw_data/data.xls"
         self.xl = pd.ExcelFile(file_path)
-        return self.xl.sheet_names
 
     def pcg_mf_pop(self):
         df = self.xl.parse("pcgmale-female pop16")
@@ -142,6 +141,17 @@ class DataLoaderService:
 
     def ann_trend_01_16(self):
         df = self.xl.parse("anntrend01-16")
+        df.dropna(axis=0, inplace=True)
+        return df
+
+    def gen_growth_21(self):
+        df = self.xl.parse("gen_growth_21")
+        df.dropna(axis=0, inplace=True)
+        return df
+
+    def vision(self):
+        df = self.xl.parse("vision_15")
+        df['Growth Rate'] = df['Growth Rate'] * 100
         df.dropna(axis=0, inplace=True)
         return df
 
